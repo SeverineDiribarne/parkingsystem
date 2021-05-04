@@ -2,6 +2,7 @@ package com.parkit.parkingsystem.service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
@@ -13,13 +14,20 @@ public class FareCalculatorService {
 			throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
 		}
 
-		LocalDateTime inTime = LocalDateTime.of(ticket.getInTime().getYear() + 1900, ticket.getInTime().getMonth() + 1,
-				ticket.getInTime().getDay() + 1, ticket.getInTime().getHours(), ticket.getInTime().getMinutes(),
-				ticket.getInTime().getSeconds());
-		LocalDateTime outTime = LocalDateTime.of(ticket.getOutTime().getYear() + 1900,
-				ticket.getOutTime().getMonth() + 1,
-				ticket.getOutTime().getDay() + 1, ticket.getOutTime().getHours(), ticket.getOutTime().getMinutes(),
-				ticket.getOutTime().getSeconds());
+		LocalDateTime inTime = LocalDateTime.of(
+				ticket.getInTime().get(Calendar.YEAR),
+				ticket.getInTime().get(Calendar.MONTH),
+				ticket.getInTime().get(Calendar.DAY_OF_MONTH),
+				ticket.getInTime().get(Calendar.HOUR),
+				ticket.getInTime().get(Calendar.MINUTE),
+				ticket.getInTime().get(Calendar.SECOND));
+		LocalDateTime outTime = LocalDateTime.of(
+				ticket.getOutTime().get(Calendar.YEAR),
+				ticket.getOutTime().get(Calendar.MONTH),
+				ticket.getOutTime().get(Calendar.DAY_OF_MONTH),
+				ticket.getOutTime().get(Calendar.HOUR),
+				ticket.getOutTime().get(Calendar.MINUTE),
+				ticket.getOutTime().get(Calendar.SECOND));
 
 		float duration = (float) (ChronoUnit.MINUTES.between(inTime, outTime) / 60.0);
 
