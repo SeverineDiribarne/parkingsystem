@@ -8,8 +8,8 @@ public class Ticket {
 	private ParkingSpot parkingSpot;
 	private String vehicleRegNumber;
 	private double price;
-	private Calendar inTime = Calendar.getInstance();
-	private Calendar outTime = Calendar.getInstance();
+	private Calendar inTime = null;
+	private Calendar outTime = null;
 
 	public int getId() {
 		return id;
@@ -48,7 +48,11 @@ public class Ticket {
 	}
 
 	public void setInTime(Date inTime) {
-		this.inTime.setTime(inTime);
+		if (inTime != null) {
+			this.inTime = Calendar.getInstance();
+			this.inTime.setTime(inTime);
+		}
+
 	}
 
 	public Calendar getOutTime() {
@@ -56,6 +60,9 @@ public class Ticket {
 	}
 
 	public void setOutTime(Date outTime) {
-		this.outTime.setTime(outTime);
+		if (outTime != null) {
+			this.outTime = Calendar.getInstance();
+			this.outTime.setTime(outTime);
+		}
 	}
 }

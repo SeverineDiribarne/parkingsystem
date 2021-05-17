@@ -88,4 +88,28 @@ public class TicketDAO {
 		}
 		return false;
 	}
+
+	public boolean findVehicleRegNumber(String vehicleRegNumber) {
+		Connection con = null;
+		boolean vehicleRegNumberAppearsAtLeastOnce = false;
+		try {
+			con = dataBaseConfig.getConnection();
+			PreparedStatement ps = con.prepareStatement(DBConstants.FIND_VEHICLE_REG_NUMBER);
+			// VEHICLE_REG_NUMBER
+			ps.setString(1, vehicleRegNumber);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				vehicleRegNumberAppearsAtLeastOnce = true;
+			}
+			dataBaseConfig.closeResultSet(rs);
+			dataBaseConfig.closePreparedStatement(ps);
+		} catch (Exception ex) {
+			logger.error("\r\n"
+					+ "Error retrieving vehicle registration number", ex);
+		} finally {
+			dataBaseConfig.closeConnection(con);
+			return vehicleRegNumberAppearsAtLeastOnce;
+		}
+	}
+
 }
