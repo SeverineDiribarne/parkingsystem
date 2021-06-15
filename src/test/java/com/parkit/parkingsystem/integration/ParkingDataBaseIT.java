@@ -88,7 +88,12 @@ public class ParkingDataBaseIT {
 
 		// THEN
 		Ticket ticketInDB = ticketDAO.getTicket("ABCDEF");
+<<<<<<< HEAD
 		Assert.assertTrue(ticketInDB.getPrice() > 0.0);
+=======
+
+		Assert.assertTrue(ticketInDB.getPrice() >= 0.0);
+>>>>>>> feature/Free_Parking_Less_30_Minutes
 		Assert.assertNull(ticketInDB.getOutTime());
 
 	}
