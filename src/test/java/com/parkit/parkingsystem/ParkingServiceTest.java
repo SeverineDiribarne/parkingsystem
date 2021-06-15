@@ -22,6 +22,8 @@ import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
+import junit.framework.Assert;
+
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
 
@@ -38,6 +40,7 @@ public class ParkingServiceTest {
 	public void processExitingVehicleTest() {
 		ParkingService parkingService = null;
 		try {
+			// GIVEN
 			when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 			when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
 			ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
@@ -54,15 +57,18 @@ public class ParkingServiceTest {
 			e.printStackTrace();
 			throw new RuntimeException("Failed to set up test mock objects");
 		}
-
-		parkingService.processExitingVehicle();
+		// WHEN
+		parkingService.processExitingVehicle(new Date());
+		// THEN
 		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
+		verify(ticketDAO, Mockito.times(1)).getTicket("ABCDEF");
 	}
 
 	@Test
 	public void priceIsEqualToZeroWhenTheTicketIsStarted() {
 		ParkingService parkingService = null;
 		try {
+			// GIVEN
 			when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 			when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
 			when(inputReaderUtil.readSelection()).thenReturn(1);
@@ -75,14 +81,15 @@ public class ParkingServiceTest {
 			ticket.setPrice(0);
 			ticket.setVehicleRegNumber("ABCDEF");
 			when(ticketDAO.findVehicleRegNumber(any(String.class))).thenReturn(false);
-			// when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
 			parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+			// WHEN
 			parkingService.processIncomingVehicle();
-
+			// THEN
 			ArgumentCaptor<Ticket> ticketArgumentCaptor = ArgumentCaptor.forClass(Ticket.class);
 			verify(ticketDAO, Mockito.times(1)).saveTicket(ticketArgumentCaptor.capture());
 			Ticket savedTicket = ticketArgumentCaptor.getValue();
 			assertTrue(savedTicket.getPrice() == 0.0);
+			Assert.assertEquals(savedTicket.getVehicleRegNumber(), "ABCDEF");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,13 +102,12 @@ public class ParkingServiceTest {
 		// GIVEN
 		when(inputReaderUtil.readSelection()).thenReturn(2);
 		when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
+		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
 		// WHEN
-		parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
 
 		// THEN
 		assertTrue(parkingSpot.getParkingType() == ParkingType.BIKE);
 	}
-
 }
