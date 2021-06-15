@@ -1,5 +1,7 @@
 package com.parkit.parkingsystem.service;
 
+import java.util.Date;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,7 +32,7 @@ public class InteractiveShell {
 				break;
 			}
 			case 2: {
-				parkingService.processExitingVehicle();
+				parkingService.processExitingVehicle(new Date());
 				break;
 			}
 			case 3: {

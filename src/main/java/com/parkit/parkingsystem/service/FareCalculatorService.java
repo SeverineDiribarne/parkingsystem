@@ -31,32 +31,35 @@ public class FareCalculatorService {
 				ticket.getOutTime().get(Calendar.SECOND));
 
 		float duration = (float) (ChronoUnit.MINUTES.between(inTime, outTime) / 60.0);
-		boolean applyDiscount = this.isDiscount(ticketDAO, ticket.getVehicleRegNumber());
-		switch (ticket.getParkingSpot().getParkingType()) {
-		case CAR: {
+		if (duration <= 0.5) {
+			ticket.setPrice(0);
+		} else {
+			boolean applyDiscount = this.isDiscount(ticketDAO, ticket.getVehicleRegNumber());
 
-			double total = duration * Fare.CAR_RATE_PER_HOUR;
-			if (applyDiscount) {
-				total -= (total * 0.05);
+			switch (ticket.getParkingSpot().getParkingType()) {
+			case CAR: {
+				double total = duration * Fare.CAR_RATE_PER_HOUR;
+				if (applyDiscount) {
+					total -= (total * 0.05);
+				}
+				ticket.setPrice(total);
+				break;
 			}
-			ticket.setPrice(total);
-			break;
-		}
-		case BIKE: {
-			double total = (duration * Fare.BIKE_RATE_PER_HOUR);
-			if (applyDiscount) {
-				total -= (total * 0.05);
+			case BIKE: {
+				double total = (duration * Fare.BIKE_RATE_PER_HOUR);
+				if (applyDiscount) {
+					total -= (total * 0.05);
+				}
+				ticket.setPrice(total);
+				break;
 			}
-			ticket.setPrice(total);
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unkown Parking Type");
+			default:
+				throw new IllegalArgumentException("Unkown Parking Type");
+			}
 		}
 	}
 
 	public boolean isDiscount(TicketDAO ticketDAO, String vehicleRegNumber) {
-
 		return ticketDAO.findVehicleRegNumber(vehicleRegNumber);
 	}
 }
