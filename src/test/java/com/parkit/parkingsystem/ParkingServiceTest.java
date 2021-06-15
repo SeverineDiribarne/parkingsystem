@@ -65,7 +65,6 @@ public class ParkingServiceTest {
 	}
 
 	@Test
-<<<<<<< HEAD
 	public void priceIsEqualToZeroWhenTheTicketIsStarted() {
 		ParkingService parkingService = null;
 		try {
@@ -95,11 +94,6 @@ public class ParkingServiceTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-=======
-	public void processExitingVehicleTest() {
-		parkingService.processExitingVehicle(null);
-		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
->>>>>>> feature/Free_Parking_Less_30_Minutes
 	}
 
 	@Test
