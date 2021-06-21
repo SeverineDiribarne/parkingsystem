@@ -2,11 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- =================================================================================== -->
+	<!--                                 Informations du projet -->
+	<!-- =================================================================================== -->
+	<!-- Informations Maven -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.parkit</groupId>
 	<artifactId>parking-system</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
+
+	<!-- Properties -->
 
 	<properties>
 		<dep.junit.version>5.3.2</dep.junit.version>
@@ -16,34 +22,42 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
+	<!-- Dependencies -->
+
 	<dependencies>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>${dep.apache.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>${dep.apache.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.17</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>${dep.junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>${dep.junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
@@ -57,18 +71,23 @@
 			<version>2.23.4</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.jacoco</groupId>
 			<artifactId>jacoco-maven-plugin</artifactId>
 			<version>0.8.5</version>
 			<type>maven-plugin</type>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-assembly-plugin</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
 	</dependencies>
+
+	<!-- Build -->
 
 	<build>
 		<plugins>
@@ -78,7 +97,7 @@
 				<version>3.3.0</version>
 				<executions>
 					<execution>
-					<id>make-assembly</id>
+						<id>make-assembly</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
@@ -98,6 +117,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -132,6 +152,26 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>findbugs-maven-plugin</artifactId>
+							<version>3.0.5</version>
+							<configuration>
+								<xmlOutput>true</xmlOutput>
+								<!-- Optional directory to put findbugs xdoc xml report -->
+								<xmlOutputDirectory>target/site/findbugs</xmlOutputDirectory>
+							</configuration>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -151,7 +191,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
-
 </project>

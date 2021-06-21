@@ -1,4 +1,40 @@
 -------------------------------------------------------------------------------
 Test set: com.parkit.parkingsystem.FareCalculatorServiceTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.973 s - in com.parkit.parkingsystem.FareCalculatorServiceTest
+Tests run: 17, Failures: 9, Errors: 0, Skipped: 0, Time elapsed: 1.761 s <<< FAILURE! - in com.parkit.parkingsystem.FareCalculatorServiceTest
+calculateFareCarWithLessThanOneHourParkingTime  Time elapsed: 1.584 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1.125> but was: <0.0>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateFareCarWithLessThanOneHourParkingTime(FareCalculatorServiceTest.java:125)
+
+calculateFareUnkownType  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected java.lang.NullPointerException to be thrown, but nothing was thrown.
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateFareUnkownType(FareCalculatorServiceTest.java:82)
+
+calculateFareCar  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <0.0> but was: <1.5>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateFareCar(FareCalculatorServiceTest.java:55)
+
+calculateFareBike  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <0.0> but was: <1.0>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateFareBike(FareCalculatorServiceTest.java:69)
+
+calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser{double, double, ParkingType, boolean}[1]  Time elapsed: 0.016 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1.425> but was: <0.0>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser(FareCalculatorServiceTest.java:165)
+
+calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser{double, double, ParkingType, boolean}[2]  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1.5> but was: <0.0>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser(FareCalculatorServiceTest.java:165)
+
+calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser{double, double, ParkingType, boolean}[3]  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <0.95> but was: <0.0>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser(FareCalculatorServiceTest.java:165)
+
+calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser{double, double, ParkingType, boolean}[4]  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1.0> but was: <0.0>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser(FareCalculatorServiceTest.java:165)
+
+calculateFareBikeWithLessThanOneHourParkingTime  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <0.75> but was: <0.0>
+	at com.parkit.parkingsystem.FareCalculatorServiceTest.calculateFareBikeWithLessThanOneHourParkingTime(FareCalculatorServiceTest.java:110)
+
