@@ -36,6 +36,8 @@ public class ParkingServiceTest {
 	@Mock
 	private static TicketDAO ticketDAO;
 
+	// check that the parking table is updated and that the ticket is generated
+	// after exiting a vehicle
 	@Test
 	public void processExitingVehicleTest() {
 		ParkingService parkingService = null;
@@ -64,6 +66,9 @@ public class ParkingServiceTest {
 		verify(ticketDAO, Mockito.times(1)).getTicket("ABCDEF");
 	}
 
+	// check that the price is zero in the saved ticket and check that the license
+	// plate of the car is the one recorded
+	// in the ticket when the car enters the parking lot
 	@Test
 	public void priceIsEqualToZeroWhenTheTicketIsStarted() {
 		ParkingService parkingService = null;
@@ -96,6 +101,7 @@ public class ParkingServiceTest {
 		}
 	}
 
+	// check that the type of vehicle returned is the bike
 	@Test
 	public void bikeTypeIsTheReturnedType() {
 		ParkingService parkingService = null;

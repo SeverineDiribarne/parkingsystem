@@ -38,18 +38,13 @@ public class FareCalculatorService {
 
 			switch (ticket.getParkingSpot().getParkingType()) {
 			case CAR: {
-				double total = duration * Fare.CAR_RATE_PER_HOUR;
-				if (applyDiscount) {
-					total -= (total * 0.05);
-				}
+				double total = calculatePriceWithOrWithoutDiscount(duration, applyDiscount, Fare.CAR_RATE_PER_HOUR);
 				ticket.setPrice(total);
 				break;
 			}
 			case BIKE: {
-				double total = (duration * Fare.BIKE_RATE_PER_HOUR);
-				if (applyDiscount) {
-					total -= (total * 0.05);
-				}
+
+				double total = calculatePriceWithOrWithoutDiscount(duration, applyDiscount, Fare.BIKE_RATE_PER_HOUR);
 				ticket.setPrice(total);
 				break;
 			}
@@ -59,7 +54,20 @@ public class FareCalculatorService {
 		}
 	}
 
+	// return the license plate of the vehicle found in the database in order to
+	// perform the reduction
 	public boolean isDiscount(TicketDAO ticketDAO, String vehicleRegNumber) {
 		return ticketDAO.findVehicleRegNumber(vehicleRegNumber);
+	}
+
+	// returns the total according to the application of the discount
+	public double calculatePriceWithOrWithoutDiscount(double duration, boolean applyDiscount, double type) {
+		double total = (duration * type);
+
+		// application of the reduction if the plate exists in the database
+		if (applyDiscount) {
+			total -= (total * 0.05);
+		}
+		return total;
 	}
 }

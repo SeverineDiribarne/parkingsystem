@@ -51,13 +51,16 @@ public class ParkingDataBaseIT {
 		dataBasePrepareService.clearDataBaseEntries();
 	}
 
+<<<<<<< Updated upstream
+=======
+	// check that a ticket is actualy saved in DB and Parking table is updated
+	// with availability
+>>>>>>> Stashed changes
 	@Test
 	public void testParkingACar() {
 		// GIVEN
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
-		// TODO: check that a ticket is actualy saved in DB and Parking table is updated
-		// with availability
 		// WHEN
 		parkingService.processIncomingVehicle();
 		// THEN
@@ -68,14 +71,14 @@ public class ParkingDataBaseIT {
 
 	}
 
+	// check that the fare generated and out time are populated correctly in
+	// the database
 	@Test
 	public void testParkingLotExit() {
 		// GIVEN
 		testParkingACar();
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
-		// TODO: check that the fare generated and out time are populated correctly in
-		// the database
 		// WHEN
 		Date outTime = new Date(new Date().getTime() + 2 * HOUR);
 		parkingService.processExitingVehicle(outTime);

@@ -41,6 +41,7 @@ public class FareCalculatorServiceTest {
 		ticket = new Ticket();
 	}
 
+	// check the rate generated for a car parked for one hour in the car park
 	@Test
 	public void calculateFareCar() {
 		Date inTime = new Date();
@@ -55,6 +56,7 @@ public class FareCalculatorServiceTest {
 		assertEquals(ticket.getPrice(), Fare.CAR_RATE_PER_HOUR);
 	}
 
+	// check the rate generated for a bike parked for one hour in the car park
 	@Test
 	public void calculateFareBike() {
 		Date inTime = new Date();
@@ -69,6 +71,8 @@ public class FareCalculatorServiceTest {
 		assertEquals(ticket.getPrice(), Fare.BIKE_RATE_PER_HOUR);
 	}
 
+	// check the rate generated for a unknown type parked for one hour in the car
+	// park
 	@Test
 	public void calculateFareUnkownType() {
 		Date inTime = new Date();
@@ -82,6 +86,8 @@ public class FareCalculatorServiceTest {
 		assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticketDAO, ticket));
 	}
 
+	// check that the exception has been raised in the event that the inTime is
+	// after the outTime
 	@Test
 	public void calculateFareBikeWithFutureInTime() {
 		Date inTime = new Date();
@@ -95,6 +101,8 @@ public class FareCalculatorServiceTest {
 		assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticketDAO, ticket));
 	}
 
+	// check the rate generated when a bike stays less than an hour in the parking
+	// lot
 	@Test
 	public void calculateFareBikeWithLessThanOneHourParkingTime() {
 		Date inTime = new Date();
@@ -110,6 +118,8 @@ public class FareCalculatorServiceTest {
 		assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice());
 	}
 
+	// check the rate generated when a car stays less than an hour in the parking
+	// lot
 	@Test
 	public void calculateFareCarWithLessThanOneHourParkingTime() {
 		Date inTime = new Date();
@@ -125,6 +135,8 @@ public class FareCalculatorServiceTest {
 		assertEquals((0.75 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
 	}
 
+	// check the rate generated when a car stays in the parking lot for at least one
+	// day
 	@Test
 	public void calculateFareCarWithMoreThanADayParkingTime() {
 		Date inTime = new Date();
@@ -140,6 +152,8 @@ public class FareCalculatorServiceTest {
 		assertEquals((24 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
 	}
 
+	// check that the rate reduction applies to vehicles (cars or bikes) already
+	// entered in the parking lot
 	@ParameterizedTest
 	@CsvSource({ "0.05, 1.5, CAR, true", "0.0, 1.5, CAR, false", "0.05, 1.0, BIKE,true", " 0.0, 1.0, BIKE, false" })
 	public void calculateThePriceOfTheVehicleWithTheReductionAppliedForARecurringUser(double discount, double unitPrice,
@@ -168,6 +182,8 @@ public class FareCalculatorServiceTest {
 		}
 	}
 
+	// check that the price is zero when a vehicle stays less than thirty minutes in
+	// the parking lot
 	@ParameterizedTest
 	@CsvSource({ "5, CAR", "5, BIKE", "15, CAR", "15, BIKE", "30, CAR", "30, BIKE" })
 	public void priceIsEqualToZeroWhenDurationIsLessThan30Minutes(long time, ParkingType type) {
