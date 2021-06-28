@@ -51,11 +51,9 @@ public class ParkingDataBaseIT {
 		dataBasePrepareService.clearDataBaseEntries();
 	}
 
-<<<<<<< Updated upstream
-=======
 	// check that a ticket is actualy saved in DB and Parking table is updated
 	// with availability
->>>>>>> Stashed changes
+
 	@Test
 	public void testParkingACar() {
 		// GIVEN
