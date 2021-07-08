@@ -16,11 +16,16 @@ public class DataBaseConfig {
 	public Connection getConnection() throws ClassNotFoundException, SQLException {
 		logger.info("Create DB connection");
 		Class.forName("com.mysql.cj.jdbc.Driver");
+		String databaseUser = DatabaseProperties.getProperty("database.user");
+		String databasePass = DatabaseProperties.getProperty("database.password");
+		if ((databaseUser == null) || (databasePass == null)) {
+			throw new IllegalArgumentException();
+		}
 		return DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/prod?useUnicode=true"
 						+ "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
 						+ "serverTimezone=Europe/Paris",
-				"root", "rootroot");
+				databaseUser, databasePass);
 	}
 
 	public void closeConnection(Connection con) {
